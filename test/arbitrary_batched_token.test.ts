@@ -70,7 +70,7 @@ describe.each(vectors)('ArbitraryBatched-Vector-%#', (v: Vectors) => {
 
                     const client = new Type1Client();
                     clients[i] = client;
-                    const tokReq = await client.createTokenRequest(tokChl, publicKey);
+                    const tokReq = await client.createTokenRequest(tokChl, publicKey, undefined);
                     tokenRequests[i] = new TokenRequest(tokReq);
 
                     const issuer = new privateVerif.Issuer(

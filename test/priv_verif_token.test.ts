@@ -40,7 +40,7 @@ test.each(vectors)('PrivateVerifiable-Vector-%#', async (v: Vectors) => {
     );
 
     const client = new Client();
-    const tokReq = await client.createTokenRequest(tokChl, publicKey);
+    const tokReq = await client.createTokenRequest(tokChl, publicKey, undefined);
     testSerialize(TokenRequest, tokReq);
 
     const tokReqSer = tokReq.serialize();

@@ -220,8 +220,18 @@ export class Client {
     async createTokenRequest(
         tokChl: TokenChallenge,
         issuerPublicKey: Uint8Array,
+        userId?: Uint8Array,
     ): Promise<TokenRequest> {
-        const nonce = crypto.getRandomValues(new Uint8Array(32));
+        let nonce = crypto.getRandomValues(new Uint8Array(32));
+        if (userId) {
+            // Compute the nonce as H(userId || random_bytes)
+            const toHash = new Uint8Array(userId.length + nonce.length);
+            toHash.set(userId, 0);
+            toHash.set(nonce, userId.length);
+            nonce = new Uint8Array(await crypto.subtle.digest('SHA-256', toHash));
+        }
+
+
         const challengeDigest = new Uint8Array(
             await crypto.subtle.digest('SHA-256', tokChl.serialize()),
         );
