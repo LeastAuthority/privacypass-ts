@@ -10,7 +10,6 @@ import {
     Token,
     AuthorizationHeader,
     privateVerif,
-    tokenRequestToTokenTypeEntry,
 } from '../src/index.js';
 const { Client, Issuer, TokenRequest, TokenResponse } = privateVerif;
 
