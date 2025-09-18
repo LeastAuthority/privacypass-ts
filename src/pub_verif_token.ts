@@ -325,8 +325,16 @@ abstract class PubliclyVerifiableClient {
     protected async _createTokenRequest(
         tokChl: TokenChallenge,
         issuerPublicKey: Uint8Array,
+        commit?: Uint8Array,
     ): Promise<TokenRequest> {
-        const nonce = crypto.getRandomValues(new Uint8Array(32));
+        let nonce = crypto.getRandomValues(new Uint8Array(32));
+        if (commit) {
+            // Compute the nonce as H(nonce || commit)
+            const nonceAndCommit = new Uint8Array(nonce.length + commit.length);
+            nonceAndCommit.set(nonce, 0);
+            nonceAndCommit.set(commit, nonce.length);
+            nonce = nonceAndCommit;
+        }
         const challengeDigest = new Uint8Array(
             await crypto.subtle.digest('SHA-256', tokChl.serialize()),
         );
@@ -381,8 +389,9 @@ export class Client extends PubliclyVerifiableClient {
     async createTokenRequest(
         tokChl: TokenChallenge,
         issuerPublicKey: Uint8Array,
+        commit?: Uint8Array,
     ): Promise<TokenRequest> {
-        return super._createTokenRequest(tokChl, issuerPublicKey);
+        return super._createTokenRequest(tokChl, issuerPublicKey, commit);
     }
 }
 
@@ -390,8 +399,9 @@ export class ClientWithMetadata extends PubliclyVerifiableClient {
     async createTokenRequest(
         tokChl: TokenChallenge,
         issuerPublicKey: Uint8Array,
+        commit: Uint8Array,
     ): Promise<ExtendedTokenRequest> {
-        const tokenRequest = await super._createTokenRequest(tokChl, issuerPublicKey);
+        const tokenRequest = await super._createTokenRequest(tokChl, issuerPublicKey, commit);
         if (!this.extensions) {
             throw new Error('no extensions available');
         }

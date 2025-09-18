@@ -166,6 +166,7 @@ export class AuthenticatorInput {
     // } AuthenticatorInput;
 
     static readonly NONCE_LENGTH = 32;
+    static readonly EXTENDED_NONCE_LENGTH = 64;
     static readonly CHALLENGE_LENGTH = 32;
 
     constructor(
@@ -179,7 +180,7 @@ export class AuthenticatorInput {
             throw new Error('mismatch of token type');
         }
 
-        if (nonce.length !== AuthenticatorInput.NONCE_LENGTH) {
+        if (nonce.length !== AuthenticatorInput.NONCE_LENGTH && nonce.length !== AuthenticatorInput.EXTENDED_NONCE_LENGTH) {
             throw new Error('invalid nonce size');
         }
 
@@ -205,7 +206,7 @@ export class AuthenticatorInput {
         const type = input.getUint16(offset);
         offset += 2;
 
-        let len = AuthenticatorInput.NONCE_LENGTH;
+        let len = AuthenticatorInput.EXTENDED_NONCE_LENGTH;
         const nonce = new Uint8Array(input.buffer.slice(offset, offset + len));
         offset += len;
 
