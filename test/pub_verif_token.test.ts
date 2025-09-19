@@ -24,6 +24,7 @@ const vectors = [...vectorsGo, ...vectorsRust];
 
 import { keysFromVector, type Vectors } from './pub_verif_token.js';
 import { convertEncToRSASSAPSS } from '../src/util.js';
+import { commit } from '../src/commit.js';
 
 describe.each(vectors)('PublicVerifiable-Vector-%#', (v: Vectors) => {
     const params = [[], [{ supportsRSARAW: true }]];
@@ -42,18 +43,20 @@ describe.each(vectors)('PublicVerifiable-Vector-%#', (v: Vectors) => {
         const tokChl = TokenChallenge.deserialize(challengeSerialized);
 
         // Create userId as UUIDv4 random
-        const commit = crypto.getRandomValues(new Uint8Array(32));
+        //const commit = crypto.getRandomValues(new Uint8Array(32));
+        const input = crypto.getRandomValues(new Uint8Array(32));
+        const commitment = commit(input).commitment;
         
         // Mock for randomized operations.
         vi.spyOn(crypto, 'getRandomValues')
             .mockReturnValueOnce(nonce)
             .mockReturnValueOnce(salt)
             .mockReturnValueOnce(blind)
-            .mockReturnValueOnce(commit);
+            .mockReturnValueOnce(commitment);
 
         const client = new Client(mode);
 
-        const tokReq = await client.createTokenRequest(tokChl, publicKeyEnc, commit);
+        const tokReq = await client.createTokenRequest(tokChl, publicKeyEnc, commitment);
         testSerializeType(TOKEN_TYPES.BLIND_RSA, TokenRequest, tokReq);
 
         //const tokReqSer = tokReq.serialize();
