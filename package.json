@@ -1,11 +1,12 @@
 {
-    "name": "@cloudflare/privacypass-ts",
-    "version": "0.7.2",
+    "name": "privacypass-with-commitments",
+    "version": "0.1.0",
     "description": "privacypass-ts: A TypeScript Library for the Privacy Pass Issuance Protocol",
     "author": "Armando Faz <armfazh@cloudflare.com>",
     "contributors": [
         "Armando Faz <armfazh@cloudflare.com>",
-        "Thibault Meunier <thibault@cloudflare.com>"
+        "Thibault Meunier <thibault@cloudflare.com>",
+        "Eduardo Morais <eduardo.morais@gmail.com>"
     ],
     "license": "Apache-2.0",
     "private": false,
@@ -22,8 +23,8 @@
         "privacypass",
         "token"
     ],
-    "homepage": "https://github.com/cloudflare/privacypass-ts#readme",
-    "repository": "github:cloudflare/privacypass-ts",
+    "homepage": "https://github.com/LeastAuthority/privacypass-ts#readme",
+    "repository": "github:LeastAuthority/privacypass-ts#add-commitments",
     "engines": {
         "node": ">=20"
     },
