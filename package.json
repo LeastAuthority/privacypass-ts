@@ -1,5 +1,5 @@
 {
-    "name": "privacypass-with-commitments",
+    "name": "privacypass-ts-fork",
     "version": "0.1.0",
     "description": "privacypass-ts: A TypeScript Library for the Privacy Pass Issuance Protocol",
     "author": "Armando Faz <armfazh@cloudflare.com>",
