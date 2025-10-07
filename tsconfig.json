@@ -25,7 +25,8 @@
         "allowSyntheticDefaultImports": true,
         "verbatimModuleSyntax": true,
         "rootDir": ".",
-        "outDir": "lib"
+        "outDir": "lib",
+        "skipLibCheck": true
     },
     "files": [],
     "include": [],
