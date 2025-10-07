@@ -46,7 +46,7 @@ describe.each(vectors)('PublicVerifiable-Vector-%#', (v: Vectors) => {
         //const commit = crypto.getRandomValues(new Uint8Array(32));
         const input = crypto.getRandomValues(new Uint8Array(32));
         const commitment = commit(input).commitment;
-        
+
         // Mock for randomized operations.
         vi.spyOn(crypto, 'getRandomValues')
             .mockReturnValueOnce(nonce)

@@ -180,7 +180,10 @@ export class AuthenticatorInput {
             throw new Error('mismatch of token type');
         }
 
-        if (nonce.length !== AuthenticatorInput.NONCE_LENGTH && nonce.length !== AuthenticatorInput.EXTENDED_NONCE_LENGTH) {
+        if (
+            nonce.length !== AuthenticatorInput.NONCE_LENGTH &&
+            nonce.length !== AuthenticatorInput.EXTENDED_NONCE_LENGTH
+        ) {
             throw new Error('invalid nonce size');
         }
 

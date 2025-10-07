@@ -36,9 +36,7 @@ test.each(vectors)('PrivateVerifiable-Vector-%#', async (v: Vectors) => {
     const commit = crypto.getRandomValues(new Uint8Array(32));
 
     // Mock for randomized operations.
-    vi.spyOn(crypto, 'getRandomValues')
-        .mockReturnValueOnce(nonce)
-        .mockReturnValueOnce(commit);
+    vi.spyOn(crypto, 'getRandomValues').mockReturnValueOnce(nonce).mockReturnValueOnce(commit);
 
     vi.spyOn(VOPRFClient.prototype, 'randomBlinder').mockReturnValueOnce(
         Promise.resolve(TOKEN_TYPES.VOPRF.group.desScalar(blind)),

@@ -19,6 +19,6 @@ export function commit(input: Uint8Array): { commitment: Uint8Array; blinding_fa
     const hash = createHash('sha256').update(new Uint8Array(data)).digest();
     return {
         commitment: new Uint8Array(hash),
-        blinding_factor: new Uint8Array(blinding_factor)
+        blinding_factor: new Uint8Array(blinding_factor),
     };
 }

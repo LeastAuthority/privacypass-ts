@@ -9,7 +9,7 @@ describe('commit', () => {
         for (let i = 0; i < 32; i++) input[i] = i;
 
         const { commitment, blinding_factor } = commit(input);
-        
+
         const data = new Uint8Array(64);
         data.set(input, 0);
         data.set(blinding_factor, 32);
